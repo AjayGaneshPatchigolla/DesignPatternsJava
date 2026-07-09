@@ -1,0 +1,1 @@
+Let's learn design patterns in java
