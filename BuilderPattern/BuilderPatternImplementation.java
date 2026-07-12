@@ -4,22 +4,23 @@ enum ProductType
 }
 class Product
 {
-    private int productId;
-    private int productPrice;
-    private String productName;
-    private ProductType ProductType;
+    // Make Product members immutable
+    private final int productId;
+    private final int productPrice;
+    private final String productName;
+    private final ProductType productType;
     private Product(Builder builder)
     {
         this.productId=builder.productId;
         this.productPrice=builder.productPrice;
         this.productName=builder.productName;
-        this.ProductType=builder.productType;
+        this.productType=builder.productType;
     }
 
     @Override
     public String toString()
     {
-        return "Product Details:\n"+"ProductId: "+this.productId+"\nProductPrice: "+this.productPrice+"\nProductName: "+this.productName+"\nProductType: "+this.ProductType;
+        return "Product Details:\n"+"ProductId: "+this.productId+"\nProductPrice: "+this.productPrice+"\nProductName: "+this.productName+"\nProductType: "+this.productType;
     }
 
     static class Builder
@@ -62,6 +63,10 @@ class Product
 
         public Product build()
         {
+            if(productName==null)
+                throw new IllegalStateException("Prodcutname cannot be null");
+            if(productPrice<=0)
+                throw new IllegalStateException("Price cannot be zero or negative");
             return new Product(this);
         }
     }
